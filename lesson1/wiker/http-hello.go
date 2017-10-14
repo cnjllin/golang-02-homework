@@ -6,7 +6,7 @@ import (
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, %s", r.URL.Path)
+	fmt.Fprintf(w, "qing求的地址是：%s", r.RemoteAddr)
 }
 
 func main() {
