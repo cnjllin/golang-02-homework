@@ -1,3 +1,4 @@
+// one example to show the c10k problem.
 package main
 
 import (
