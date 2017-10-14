@@ -6,7 +6,8 @@ import (
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "hello Golang", r.URL.Path)
+	//	fmt.Fprintf(w, "hello Golang", r.URL.Path)
+	fmt.Fprintf(w, "hello Golang") // 如果添加r.URL.Path 请求的时候会提示 %!(EXTRA string=/) 对输出的格式没有做格式化
 }
 
 // 仿照写一个函数
