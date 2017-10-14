@@ -1,3 +1,6 @@
+# lesson1 homework
+
+```
 package main
 
 import (
@@ -21,3 +24,4 @@ func main() {
 	http.HandleFunc("/user/", user_handler)
 	http.ListenAndServe(":8800", nil)
 }
+```
