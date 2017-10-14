@@ -8,7 +8,7 @@ import (
 )
 
 func handle(conn net.Conn) {
-	fmt.Fprint(conn, "%s", time.Now().String())
+	fmt.Fprintf(conn, "%s\n", time.Now().String())
 	conn.Close()
 }
 func main() {
