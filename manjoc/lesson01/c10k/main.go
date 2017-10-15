@@ -1,4 +1,7 @@
 // one example to show the c10k problem.
+// io 多路复用，redis 单进程单线程，
+// golang csp
+// nginx NUMA
 package main
 
 import (
