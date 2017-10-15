@@ -5,6 +5,9 @@ import (
 	"net/http"
 )
 
+// http://localhost:8800?user=pc
+// 响应一个 hello pc
+
 func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "<h1>hello %s!</h1>", r.URL)
 }
