@@ -1,3 +1,4 @@
+```go
 package main
 
 import (
@@ -19,3 +20,4 @@ func main() {
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8800", nil)
 }
+```
