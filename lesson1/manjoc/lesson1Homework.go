@@ -7,7 +7,7 @@ import (
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	//u := r.URL
+	//u := r.URL //
 	/*
 		m, _ := url.ParseQuery(u.RawQuery)
 		value, ok := m["user"]
