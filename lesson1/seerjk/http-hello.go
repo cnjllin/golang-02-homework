@@ -29,7 +29,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		fmt.Fprintf(w, "ERROR")
-		log.Fatal(err)
+		//处理函数不建议使用log.Fatal影响程序的健壮性
+		//log.Fatal(err)
 	} else {
 		fmt.Printf("m: %s, user: %s \n", m, m["user"][0])
 		fmt.Fprintf(w, "<h1>Hello, %s!</h1>", m["user"][0])

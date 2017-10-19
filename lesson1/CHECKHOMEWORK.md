@@ -21,7 +21,7 @@
 |alex-marmot|优||
 |Turingu|未完成||
 |wujianjian|未完成||
-|seerjk|优|处理函数不建议使用log.Fatal影响程序的健壮性|
+|seerjk|优|处理函数不建议使用log.Fatal影响程序的健壮性<br>非常感谢建议，已经在作业中修改|
 |yinzhengjie|良|雷同 for，strings并没有什么卵用|
 |sundongsheng|优||
 |leexide|未完成||
