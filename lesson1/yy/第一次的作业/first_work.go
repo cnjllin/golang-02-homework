@@ -17,5 +17,6 @@ func user_handler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", handler)
 	http.HandleFunc("/user/", user_handler)
+	http.HandleFunc("/pc/", user_handler)
 	http.ListenAndServe(":80", nil)
 }
