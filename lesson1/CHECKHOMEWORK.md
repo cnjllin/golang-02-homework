@@ -12,7 +12,7 @@
 |denghuaqing|优|一般不改变函数的形参(代码规范)，URL.Query简单粗暴，建议使用ParseQuery|
 |wdgege|未完成||
 |freebird0221|未完成||
-|zhangliyuan7|未完成||
+|zhangliyuan7|良|功能不完善，username=nil的情况会失败|
 |yy|未完成||
 |jiangjf0407|未完成||
 |manjoc|优||
