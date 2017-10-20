@@ -16,7 +16,7 @@
 |yy|未完成||
 |jiangjf0407|未完成||
 |manjoc|优||
-|yinshisheng|未完成||
+|yinshisheng|良|和denghuaqing雷同|
 |yueqing|优||
 |alex-marmot|优||
 |Turingu|未完成||
