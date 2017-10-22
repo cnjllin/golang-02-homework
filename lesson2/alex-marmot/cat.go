@@ -8,20 +8,16 @@ import (
 	"strings"
 )
 
-func errorHandler(err error)(string) {
-	return err.Error()
-}
-
 func getHTTPResult(url string)(string) {
 	res, err := http.Get(url)
 	if err != nil {
-		return errorHandler(err)
+		return err.Error()
 	}
 
 	defer res.Body.Close()
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return errorHandler(err)
+		return err.Error()
 	}
 	return string(body)
 }
@@ -29,7 +25,7 @@ func getHTTPResult(url string)(string) {
 func printFile(name string)(string) {
 	buf, err := ioutil.ReadFile(name)
 	if err != nil {
-		return errorHandler(err)
+		return err.Error()
 	}
 	return string(buf)
 }
