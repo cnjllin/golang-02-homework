@@ -40,18 +40,23 @@ func printFile(name string) (code int) {
 	return code
 }
 
-func main() {
-	if len(os.Args) != 2 {
-		fmt.Println("Usage: ./cat args")
-		return
-	}
-
-	args := os.Args[1]
-	result := printFile(args)
+func execute(arg string) {
+	result := printFile(arg)
 	if result == 1 {
-		result = getHTTPResult(args)
+		result = getHTTPResult(arg)
 	}
 	if result == 1 {
 		fmt.Println("please type right url or path for localfile")
 	}
+}
+
+func main() {
+	if len(os.Args) == 0 {
+		fmt.Println("Usage: ./cat args")
+		return
+	}
+
+	for _, arg := range os.Args[1:] {
+      execute(arg)
+  }
 }
