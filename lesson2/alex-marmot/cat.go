@@ -1,59 +1,47 @@
 package main
 
-// cat localfile
-// cat URL
-
 import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
+	"strings"
 )
 
-func errorHandler()(code int, content string) {
-	code, content = 1, ""
-	return code, content
+func errorHandler(err error)(string) {
+	return err.Error()
 }
 
-func getHTTPResult(url string)(code int, content string) {
+func getHTTPResult(url string)(string) {
 	res, err := http.Get(url)
 	if err != nil {
-		return errorHandler()
+		return errorHandler(err)
 	}
 
 	defer res.Body.Close()
 	body, err := ioutil.ReadAll(res.Body)
-
 	if err != nil {
-		return errorHandler()
+		return errorHandler(err)
 	}
-	code = 0
-	content = string(body)
-	return code, content
+	return string(body)
 }
 
-func printFile(name string) (code int, content string) {
+func printFile(name string)(string) {
 	buf, err := ioutil.ReadFile(name)
 	if err != nil {
-		return errorHandler()
+		return errorHandler(err)
 	}
-	code = 0
-	content = string(buf)
-	return code, content
+	return string(buf)
 }
 
 func execute(arg string, ch chan<- string) {
-	status, content := printFile(arg)
-	if status == 1 {
-		status, content = getHTTPResult(arg)
-		if status == 1 {
-			ch <- "please type right url or path for localfile"
-		}else{
-			ch <- content
-		}
-	}else{
-		ch <- content
+	var content string
+	if strings.HasPrefix(arg, "http") {
+		content = getHTTPResult(arg)
+	} else {
+		content = printFile(arg)
 	}
+	ch <- content
 }
 
 func main() {
