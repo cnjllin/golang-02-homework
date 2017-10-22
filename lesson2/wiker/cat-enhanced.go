@@ -12,7 +12,7 @@ import (
 func main() {
 	slice := os.Args[1:]
 	for _, value := range slice {
-		if strings.HasPrefix(value, "http") {
+		if strings.HasPrefix(value, "http") {  //判断是否是网站地址，以是否是http开头为根据
 			fmt.Println(CatHttp(value))
 		} else {
 			fmt.Println(CatFile(value))
