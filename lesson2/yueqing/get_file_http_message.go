@@ -57,6 +57,10 @@ func main() {
 		需要老师帮忙提一下 相应的思路
 	*/
 	s := os.Args[1:]
+	if len(s) < 2 {
+		fmt.Println("请你输入文件或者是 url")
+		return
+	}
 	for _, n := range s {
 		code_status := Get_http_status(n)
 		if code_status == 0 {
