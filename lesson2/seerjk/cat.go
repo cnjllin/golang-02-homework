@@ -70,7 +70,9 @@ func main() {
 		var tmp string
 		var err error
 
-		if strings.Contains(flag.Arg(i), "http://") {
+		//if strings.Contains(flag.Arg(i), "http://") {
+		//strings.HasPrefix(s) 是否以s开头
+		if strings.HasPrefix(flag.Arg(i), "http://") {
 			tmp, err = catURL(flag.Arg(i))
 		} else {
 			tmp, err = catFile(flag.Arg(i))
