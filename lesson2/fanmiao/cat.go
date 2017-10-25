@@ -33,7 +33,7 @@ func main() {
 		if index == 0{
 			continue
 //判断命令行参数是文件还是网页，匹配http开头的为网页，默认为文件
-		}else if strings.Contains(uri,"http"){
+		}else if strings.HasPrefix(uri,"http://"){
 			printWeb(uri)
 		}else{
                         printFile(uri)
