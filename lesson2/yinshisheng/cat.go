@@ -13,7 +13,9 @@ func cat_http(i int) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(r)
+	defer r.Body.Close()
+	body,_ := ioutil.ReadAll(r.Body)
+	fmt.Println(string(body))
 }
 
 func cat_file(i int) {
@@ -33,7 +35,7 @@ func main() {
 	}
 
 	for i := 1; i < len(os.Args); i++ {
-		if os.Args[i][:4] == "http" {  //文件名需要大于4个字符
+		if os.Args[i][:4] == "http" {  //已知BUG文件名需要大于4个字符
 			cat_http(i)
 		} else {
 			cat_file(i)
