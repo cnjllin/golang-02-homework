@@ -9,16 +9,16 @@ import (
 	"os"
 )
 
-func cat_http() {
-	r, err := http.Get(os.Args[1])
+func cat_http(i int) {
+	r, err := http.Get(os.Args[i])
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println(r)
 }
 
-func cat_file() {
-	f, err := os.OpenFile(os.Args[1], os.O_RDWR|os.O_CREATE, 0644)
+func cat_file(i int) {
+	f, err := os.OpenFile(os.Args[i], os.O_RDWR|os.O_CREATE, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -41,9 +41,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	if os.Args[1][:4] == "http" {
-		cat_http()
-	} else {
-		cat_file()
+	for i := 1; i < len(os.Args); i++ {
+		if os.Args[i][:4] == "http" {
+			cat_http(i)
+		} else {
+			cat_file(i)
+		}
 	}
 }
