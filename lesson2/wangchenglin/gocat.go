@@ -70,6 +70,9 @@ func parseArgs(argv string) {
 func parseUrl(url string) {
 	resp, _ := http.Get(url)
 	fmt.Println(resp)
+
+	// 关闭连接
+	defer resp.Body.Close()
 }
 
 // 读取文件并显示
