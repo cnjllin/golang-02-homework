@@ -35,8 +35,12 @@ func main() {
 	}
 
 	for i := 1; i < len(os.Args); i++ {
-		if os.Args[i][:4] == "http" {  //已知BUG文件名需要大于4个字符
-			cat_http(i)
+		if len(os.Args[i]) >= 4 {
+			if os.Args[i][:4] == "http" {
+				cat_http(i)
+			} else {
+				cat_file(i)
+			}
 		} else {
 			cat_file(i)
 		}
