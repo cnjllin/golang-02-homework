@@ -2,6 +2,9 @@ package utils
 
 import "fmt"
 
+var Utils_a = "utils_assss"
+
 func Printhello() {
-	fmt.Println("hello from utils")
+	var cat = "cici"
+	fmt.Println("hello from utils", cat)
 }
