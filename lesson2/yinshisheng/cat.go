@@ -1,12 +1,11 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 	"os"
+	"io/ioutil"
 )
 
 func cat_http(i int) {
@@ -18,21 +17,13 @@ func cat_http(i int) {
 }
 
 func cat_file(i int) {
-	f, err := os.OpenFile(os.Args[i], os.O_RDWR|os.O_CREATE, 0644)
+	buf, err := ioutil.ReadFile(os.Args[i])
+
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	r := bufio.NewReader(f)
-	for {
-		line, err := r.ReadString('\n')
-		if err == io.EOF {
-			break
-		}
-		fmt.Print(line)
-	}
-	f.Close()
-
+	fmt.Println(string(buf))
 }
 
 func main() {
@@ -42,7 +33,7 @@ func main() {
 	}
 
 	for i := 1; i < len(os.Args); i++ {
-		if os.Args[i][:4] == "http" {
+		if os.Args[i][:4] == "http" {  //文件名需要大于4个字符
 			cat_http(i)
 		} else {
 			cat_file(i)
