@@ -84,20 +84,4 @@ func main() {
 		output += tmp
 	}
 	fmt.Println(output)
-
-	//url_input := "http://www.baabcidu.com"
-	//content, err := catURL(url_input)
-	//if err != nil {
-	//	// handle error
-	//	log.Fatal(err)
-	//}
-	//fmt.Println(content)
-	//
-	//fmt.Println(strings.Contains(url_input, "http://"))
-
-	//content, err := catFile("/tmp/if1.txt")
-	//if err != nil {
-	//	log.Fatal(err)
-	//}
-	//fmt.Println(content)
 }
