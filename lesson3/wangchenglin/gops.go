@@ -27,10 +27,7 @@ var titleFlag bool
 
 func matchFileName(fileName string) bool {
 	match, _ := regexp.MatchString("^[0-9]*$", fileName)
-	if match {
-		return true
-	}
-	return false
+	return match
 }
 
 func printTitle() {
