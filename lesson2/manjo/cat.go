@@ -10,29 +10,30 @@ import "log"
 import "strings"
 
 func catfile(s string) {
-        src, err := os.Open(s)
-        if err != nil {
-                log.Print(err)
-        }
-        io.Copy(os.Stdout, src)
+	src, err := os.Open(s)
+	if err != nil {
+		log.Print(err)
+	}
+	io.Copy(os.Stdout, src)
+	src.Close()
 }
 func cathttp(s string) {
-        resp, err := http.Get(s)
-        if err != nil {
-                log.Print(err)
-        }
-        io.Copy(os.Stdout, resp.Body)
-        //defer resp.Body.Close()
-        //body, err := ioutil.ReadAll(resp.Body)
-        //fmt.Printf("%v", string(body))
+	resp, err := http.Get(s)
+	if err != nil {
+		log.Print(err)
+	}
+	io.Copy(os.Stdout, resp.Body)
+	//defer resp.Body.Close()
+	//body, err := ioutil.ReadAll(resp.Body)
+	//fmt.Printf("%v", string(body))
 }
 func main() {
-        for _, file := range os.Args[1:] {
-                if strings.HasPrefix(file, "http://") {
-                        cathttp(file)
-                } else {
-                        catfile(file)
-                }
-        }
+	for _, file := range os.Args[1:] {
+		if strings.HasPrefix(file, "http://") {
+			cathttp(file)
+		} else {
+			catfile(file)
+		}
+	}
 
 }
