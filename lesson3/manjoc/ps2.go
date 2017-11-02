@@ -19,6 +19,7 @@ func Iscmdline(pid string) {
 		Iscomm(pid)
 	}
 }
+
 func Iscomm(pid string) {
 	f, err := os.Open("/proc/" + pid + "/comm")
 	checkErr(err)
@@ -28,6 +29,7 @@ func Iscomm(pid string) {
 		fmt.Printf("%s", pid+"\t"+string(ff))
 	}
 }
+
 func checkErr(err error) {
 	if err != nil {
 		log.Printf("%s", err)
@@ -50,5 +52,4 @@ func main() {
 			continue
 		}
 	}
-
 }
