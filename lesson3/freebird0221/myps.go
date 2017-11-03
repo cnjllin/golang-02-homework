@@ -25,7 +25,7 @@ func main(){
     hundle_err(err)
     cmdline, err := ioutil.ReadAll(fd)
     hundle_err(err)
-    fmt.Printf("%s %s", info.Name(), cmdline)
+    fmt.Printf("%s\t%s\n", info.Name(), cmdline)
   }
 }
 
