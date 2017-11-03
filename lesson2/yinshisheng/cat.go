@@ -14,7 +14,9 @@ func cat_http(i int) {
 		log.Fatal(err)
 	}
 	defer r.Body.Close()
+
 	body,_ := ioutil.ReadAll(r.Body)
+
 	fmt.Println(string(body))
 }
 
