@@ -14,12 +14,14 @@ func title() {
 
 func getpid(path string) {
 	files,err := ioutil.ReadDir(path)
+
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	for _, file := range(files) {
 		pid, _ := strconv.Atoi(file.Name())
+
 		if pid != 0 {
 			getcmdline(pid)
 		}
@@ -30,10 +32,16 @@ func getcmdline(pid int) {
 	p := strconv.Itoa(pid)
 	cmdline := "/proc/" + p + "/cmdline"
 	cont,err := ioutil.ReadFile(cmdline)
+
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("%d\t%s\n", pid,cont)
+
+	if len(cont) == 0 {
+		fmt.Printf("%d\t%s\n", pid,"--")
+	} else {
+		fmt.Printf("%d\t%s\n", pid,cont)
+	}
 }
 
 func main() {
