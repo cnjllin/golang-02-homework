@@ -31,4 +31,10 @@ func main() {
 	fmt.Printf("%v, %p, %T\n", d, d, d)
 	fmt.Printf("%v, %p, %T\n", e, e, e)
 	fmt.Printf("%v, %p, %T\n", f, &f, f)
+	// 数组比较是深比较
+	fmt.Println(b == a)
+	b = a
+	fmt.Println(b == a)
+	// 切片只能和nil进行比较
+	fmt.Println(d == e)
 }
