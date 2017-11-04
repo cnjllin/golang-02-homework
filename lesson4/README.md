@@ -10,7 +10,9 @@ http://192.168.1.8:4000/set/Key/Value
 写入Key:Value
 
 ## Get接口
+```bash
 http://192.168.1.8:4000/get/xxxxxx
+```
 获取xxxxx对应的Value，如果不存在就返回HTTP Code 404
 
 ## 持久化
