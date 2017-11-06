@@ -14,7 +14,10 @@ func catfile(s string) {
 	if err != nil {
 		log.Print(err)
 	}
-	io.Copy(os.Stdout, src)
+	_, ok := io.Copy(os.Stdout, src)
+	if ok != nil {
+		log.Println("there is an error occured")
+	}
 	src.Close()
 }
 func cathttp(s string) {
