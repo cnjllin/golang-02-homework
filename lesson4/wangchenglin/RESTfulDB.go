@@ -35,7 +35,7 @@ type db struct {
 	dbMap  map[string]interface{}
 }
 
-var g_DB = db{dbMap: make(map[string]interface{})}
+var g_DB db
 
 const fileName string = "dump.db"
 
@@ -97,8 +97,11 @@ func Load() map[string]interface{} {
 		return nil
 	}
 	log.Printf("%s数据文件加载成功~\n", fileName)
+
+	m := make(map[string]interface{})
+
 	if len(j) == 0 {
-		return make(map[string]interface{})
+		return m
 	}
 
 	json_j, err := NewJson(j)
@@ -107,7 +110,8 @@ func Load() map[string]interface{} {
 		return nil
 	}
 
-	m := json_j.Map()
+	m = json_j.Map()
+
 	return m
 }
 
