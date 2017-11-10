@@ -24,7 +24,7 @@ func putdb(keys string ,vaule string) {
 
 type Htt struct {}
 
-func (ht Htt)  ServeHTTP(w http.ResponseWriter,r *http.Request)  {
+func (htt Htt)  ServeHTTP(w http.ResponseWriter,r *http.Request)  {
 	url_list := strings.Split(html.EscapeString(r.URL.Path),"/")
 	if url_list[1] == "get" && len(url_list) == 3 {
 		db_get := getdb(url_list[2])
