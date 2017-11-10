@@ -83,6 +83,7 @@ func ReadJson(json_file string) []string {
 	return s
 }
 
+
 //数据存盘
 func SaveJson(k, v string) {
 	f, err := os.OpenFile("data.txt", os.O_RDWR | os.O_APPEND | os.O_CREATE, 0644)
@@ -96,6 +97,7 @@ func SaveJson(k, v string) {
 
 
 func main() {
+	InitJson()
 	http.HandleFunc("/set/", set)
 	http.HandleFunc("/get/", get)
 	http.ListenAndServe(":8081",nil)
