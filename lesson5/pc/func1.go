@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"strings"
+	//	"strings"
 )
 
 func print() int {
@@ -19,11 +19,18 @@ func main() {
 		f = func() int {
 			return 10
 		}
-	*/
-	//fmt.Println(f())
 
-	s := strings.Map(func(r rune) rune {
-		return r - 32
-	}, "hello")
-	fmt.Println(s)
+		func f() int {
+			return 10
+		}
+		fmt.Println(f())
+
+		s := strings.Map(func(r rune) rune {
+			return r - 32
+		}, "hello")
+		fmt.Println(s)
+	*/
+	fmt.Println(func() string {
+		return "Func"
+	}())
 }
