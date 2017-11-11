@@ -24,4 +24,7 @@ func main() {
 	cmd2.Start()
 
 	cmd1.Wait()
+	r.Close()
+	w.Close()
+	cmd2.Wait()
 }

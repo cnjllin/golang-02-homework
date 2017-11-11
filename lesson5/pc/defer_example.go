@@ -19,5 +19,6 @@ func print() {
 
 func main() {
 	print()
-	log.Println("main")
+	log.Println(1 << 2)
+	log.Println(10 << 2)
 }
