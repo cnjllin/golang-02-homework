@@ -33,8 +33,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		key := urlPathlList[2]
 		value, ok := DBGlobal.dbMap[key]
 		if ok {
+			// string类型断言，强制转换为string
+			v, _ := value.(string)
 			w.WriteHeader(http.StatusOK)
-			w.Write([]byte(fmt.Sprintf("%s", value)))
+			w.Write([]byte(fmt.Sprintf("%s", v)))
 		} else {
 			w.WriteHeader(http.StatusNotImplemented)
 			w.Write([]byte(fmt.Sprintf("key %s not exist", key)))
