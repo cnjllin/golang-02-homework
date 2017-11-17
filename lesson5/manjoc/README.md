@@ -1,8 +1,6 @@
-<div align=center>
-<img src="https://i.imgur.com/JfxuYKM.png"/>
-</div>
+![](https://i.imgur.com/JfxuYKM.png)
 
-**上：ide， 下： github**
+**上：ide， 下： github**  
 
 <pre>
 // 支持重定向
