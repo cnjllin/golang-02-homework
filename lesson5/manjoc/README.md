@@ -1,7 +1,10 @@
 <div align=center>
 <img src="https://i.imgur.com/JfxuYKM.png"/>
 </div>
-```golang
+
+**上：ide， 下： github**
+
+<pre>
 // 支持重定向
 func redirectCommand(line string) {
 	// fmt.Println("redirect command.")
@@ -20,4 +23,4 @@ func redirectCommand(line string) {
 		fmt.Println(err)
 	}
 }
-```
+</pre>
