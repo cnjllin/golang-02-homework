@@ -34,6 +34,38 @@ func pipeCommand(line string) {
 	lineList := strings.Split(line, "|")
 	//cmdLine := lineList[0]
 	// pipeLeft, pipeRight
+
+	type pips struct {
+		r io.Reader
+		w io.Writer
+	}
+
+	r := io.Reader
+	w := Writer
+
+	for i := 0; i < len(lineList); i++ {
+		pipeLeft := strings.Fields(lineList[i])
+		pipeRight := strings.Fields(lineList[i+1])
+		//r, w := io.Pipe()
+		r, w := io.Pipe()
+
+		cmdLeft := exec.Command(pipeLeft[i], pipeLeft[i+1:]...)
+		cmdRight := exec.Command(pipeRight[i], pipeRight[i+1:]...)
+		cmdLeft.Stdin = os.Stdin
+		cmdLeft.Stdout = w
+		cmdLeft.Stderr = os.Stderr
+
+		cmdRight.Stdin = r
+		cmdRight.Stdout = os.Stdout
+		cmdLeft.Start()
+		cmdRight.Start()
+
+		cmdLeft.Wait()
+		r.Close()
+		w.Close()
+		cmdRight.Wait()
+	}
+
 	pipeLeft := strings.Fields(lineList[0])
 	pipeRight := strings.Fields(lineList[1])
 	r, w := io.Pipe()
