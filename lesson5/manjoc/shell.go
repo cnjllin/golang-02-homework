@@ -30,8 +30,8 @@ func redirectCommand(line string) {
 
 // 支持管道的命令
 func pipeCommand(line string) {
-	// fmt.Println("pipe command.")
 	lineList := strings.Split(line, "|")
+<<<<<<< HEAD
 	//cmdLine := lineList[0]
 	// pipeLeft, pipeRight
 
@@ -54,6 +54,50 @@ func pipeCommand(line string) {
 	r.Close()
 	w.Close()
 	cmdRight.Wait()
+=======
+	type pips struct {
+		r *io.PipeReader
+		w *io.PipeWriter
+	}
+	mypips := make([]pips, len(lineList)-1)
+	for i := 0; i < len(lineList)-1; i++ {
+		mypips[i].r, mypips[i].w = io.Pipe()
+	}
+	// or mypips := make([]pips, len(lineList)-1)
+	cmdlists := make([][]string, len(lineList))
+	cmds := make([]*exec.Cmd, len(cmdlists))
+
+	for i := 0; i < len(lineList); i++ {
+		cmdlists[i] = strings.Fields(lineList[i])
+		cmds[i] = exec.Command(cmdlists[i][0], cmdlists[i][1:]...)
+		if i == 0 {
+			cmds[i].Stdin = os.Stdin
+		} else {
+			cmds[i].Stdin = mypips[i-1].r
+		}
+		if i == len(lineList)-1 {
+			cmds[i].Stdout = os.Stdout
+		} else {
+			cmds[i].Stdout = mypips[i].w
+		}
+		cmds[i].Stderr = os.Stderr
+	}
+
+	for i := 0; i < len(lineList); i++ {
+		cmds[i].Start()
+	}
+	for i := 0; i < len(lineList); i++ {
+		if i == 0 {
+			//cmds[i].Start()
+			cmds[i].Wait()
+		} else {
+			//cmds[i].Start()
+			mypips[i-1].r.Close()
+			mypips[i-1].w.Close()
+			cmds[i].Wait()
+		}
+	}
+>>>>>>> cc43a0065e7aca9e26ab8aaca1037ea98b6de632
 }
 
 // 一般命令，无 管道， 无 重定向
