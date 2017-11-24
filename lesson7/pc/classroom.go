@@ -89,14 +89,14 @@ func main() {
 	classroom1 := &ClassRoom{
 		students: make(map[string]*Student),
 	}
-	classroom1.Add("binggan", 1)
+	classroom1.Add("pc", 1)
 	fmt.Println("students of classroom 51reboot")
 	classroom1.List()
 
 	classroom2 := &ClassRoom{
 		students: make(map[string]*Student),
 	}
-	classroom2.Add("binggan", 2)
+	classroom2.Add("pc", 2)
 	fmt.Println("students of classroom golang")
 	classroom2.List()
 
