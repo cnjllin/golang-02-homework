@@ -31,30 +31,7 @@ func redirectCommand(line string) {
 // 支持管道的命令
 func pipeCommand(line string) {
 	lineList := strings.Split(line, "|")
-<<<<<<< HEAD
-	//cmdLine := lineList[0]
-	// pipeLeft, pipeRight
 
-	pipeLeft := strings.Fields(lineList[0])
-	pipeRight := strings.Fields(lineList[1])
-	r, w := io.Pipe()
-	cmdLeft := exec.Command(pipeLeft[0], pipeLeft[1:]...)
-	cmdRight := exec.Command(pipeRight[0], pipeRight[1:]...)
-	cmdLeft.Stdin = os.Stdin
-	cmdLeft.Stdout = w
-	cmdLeft.Stderr = os.Stderr
-
-	cmdRight.Stdin = r
-	cmdRight.Stdout = os.Stdout
-
-	cmdLeft.Start()
-	cmdRight.Start()
-
-	cmdLeft.Wait()
-	r.Close()
-	w.Close()
-	cmdRight.Wait()
-=======
 	type pips struct {
 		r *io.PipeReader
 		w *io.PipeWriter
