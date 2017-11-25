@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/rpc"
 	"os"
+	"fmt"
 )
 
 func main() {
@@ -19,10 +20,11 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		var reply bool
+		var reply string
 		err = client.Call("Listener.GetLine", line, &reply)
 		if err != nil {
 			log.Fatal(err)
 		}
+		fmt.Println(reply)
 	}
 }
