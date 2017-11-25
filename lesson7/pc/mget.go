@@ -121,7 +121,7 @@ func main() {
 	group := new(sync.WaitGroup)
 	for _, b := range blocks {
 		log.Printf("%v", b)
-		b :=
+		b := b
 		group.Add(1)
 		go func() {
 			defer group.Done()
