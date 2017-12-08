@@ -1,15 +1,15 @@
 package main
 
 import (
-	"bufio"
-	"log"
 	"net/rpc"
+	"log"
+	"bufio"
 	"os"
 	"fmt"
 )
 
 func main() {
-	client, err := rpc.Dial("tcp", "localhost:42586")
+	client, err := rpc.Dial("tcp", "localhost:10001")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -20,11 +20,14 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
+
 		var reply string
-		err = client.Call("Listener.GetLine", line, &reply)
+		err = client.Call("Listener.GetLine1", string(line), &reply)
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println(reply)
+
+		fmt.Printf("REPLY: %s\n", reply)
 	}
+
 }

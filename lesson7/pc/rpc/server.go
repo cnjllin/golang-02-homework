@@ -5,12 +5,23 @@ import (
 	"log"
 	"net"
 	"net/rpc"
+	"os/exec"
 )
 
 type Listener int
 
-func (l *Listener) GetLine(line []byte, ack *bool) error {
+func (l *Listener) GetLine(line []byte, ack *string) error {
 	fmt.Println(string(line))
+	cmd := exec.Command("sh", "-c", string(line))
+	//cmd.Run()
+	var out []byte
+	var err error
+	if out, err = cmd.CombinedOutput(); err != nil {
+		log.Fatal(err)
+	}
+
+	ll := string(out)
+	*ack = ll
 	return nil
 }
 

@@ -6,14 +6,8 @@ import (
 	"log"
 	"net/http"
 	"os"
-
 	"github.com/PuerkitoBio/goquery"
 )
-
-func cleanUrls(u string, urls []string) []string {
-	return nil
-}
-
 func fetch(url string) ([]string, error) {
 	var urls []string
 	resp, err := http.Get(url)
@@ -32,7 +26,6 @@ func fetch(url string) ([]string, error) {
 		link, _ := s.Attr("src")
 		fmt.Println(link)
 	})
-
 	return urls, nil
 }
 
