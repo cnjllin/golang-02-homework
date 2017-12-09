@@ -3,27 +3,67 @@ package main
 import (
 	"log"
 	"net"
+	"os"
+	"fmt"
+	"io"
+	//"github.com/toolkits/file"
+	"bufio"
+	"strings"
+	"github.com/auxten/logrus"
 )
 
-var content = `HTTP/1.1 200 OK
+var mainContent = `HTTP/1.1 200 OK
 Date: Sat, 29 Jul 2017 06:18:23 GMT
 Content-Type: text/html
-Connection: Keep-Alive
-Server: BWS/1.1
-X-UA-Compatible: IE=Edge,chrome=1
-BDPAGETYPE: 3
-Set-Cookie: BDSVRTM=0; path=/
+Content-Length: %d
+Connection: Close
+Server: reboot
 
-<html>
-<body>
-<h1 style="color:red">hello golang</h1>
-</body>
-</html>
 `
 
+var imgHeader = `HTTP/1.1 200 OK
+Date: Sat, 29 Jul 2017 06:18:23 GMT
+Content-Type: image/webp
+Content-Length: %d
+Connection: Close
+Server: reboot
+
+`
 func handleConn(conn net.Conn) {
-	conn.Write([]byte(content))
+	bufReader := bufio.NewReader(conn)
+	getLine, _, _ := bufReader.ReadLine()
+	sliceLine := strings.Split(string(getLine), " ")
+	logrus.Debug(sliceLine)
+	if len(sliceLine[1]) <= 2 {
+
+		var htmlBody = `<h1 style="color:red">hello golang</h1>`
+		imgDir, _ := os.Open("./img")
+		defer imgDir.Close()
+		imgs, _ := imgDir.Readdirnames(-1)
+		for _, img := range imgs {
+			if strings.Contains(img, ".webp") {
+				htmlBody += fmt.Sprintf(`<img src="/img/%s"></br>`, img)
+			}
+		}
+		conn.Write([]byte(fmt.Sprintf(mainContent, len(htmlBody))))
+		conn.Write([]byte(htmlBody))
+	} else {
+		url := "." + sliceLine[1]
+		img, err := os.Open(url)
+		if err != nil {
+			return
+		}
+		defer img.Close()
+		imgInfo, err := img.Stat()
+		if err != nil {
+			return
+		}
+
+		conn.Write([]byte(fmt.Sprintf(imgHeader, imgInfo.Size())))
+		io.Copy(conn, img)
+	}
 	conn.Close()
+
 }
 
 func main() {
