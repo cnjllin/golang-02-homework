@@ -1,3 +1,9 @@
+# homework-9
+
+继续完成自己的http图片浏览服务器，访问http://127.0.0.1:8021/ 能返回一个img文件夹里的webp格式的图片墙
+
+参考代码如下：
+```golang
 package main
 
 import (
@@ -83,3 +89,4 @@ func main() {
 		go handleConn(conn)
 	}
 }
+```
