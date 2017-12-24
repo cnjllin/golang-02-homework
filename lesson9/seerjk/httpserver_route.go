@@ -25,7 +25,7 @@ Server: RebootServer
 // Date: Sat, 29 Jul 2017 06:11:23 GMT
 var imgHead = `HTTP/1.1 200 OK
 Date: %s
-Content-Type: image/jpeg
+Content-Type: image/%s
 Content-Length: %d
 Connection: Close
 Server: RebootServer
@@ -127,7 +127,11 @@ func handleImgConn(conn net.Conn, imgPath string) {
 		return
 	}
 
-	conn.Write([]byte(fmt.Sprintf(imgHead, getHttpNowDateStr(), imgInfo.Size())))
+	// image type
+	sliceImgPath := strings.Split(imgPath, ".")
+	imgType := sliceImgPath[len(sliceImgPath)-1]
+
+	conn.Write([]byte(fmt.Sprintf(imgHead, getHttpNowDateStr(), imgType,imgInfo.Size())))
 	io.Copy(conn, imgFile)
 
 	conn.Close()
