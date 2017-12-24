@@ -23,7 +23,7 @@ type Request struct {
 var allow_ext = [...]string{".jpg", ".jpeg", ".png", ".webp"}
 
 var BaseDir string
-
+//MIME
 var http_200 = `HTTP/1.1 200 OK
 Content-Type: image/jpeg
 Content-Length: %d
