@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<title>DataTables example - Ajax data source (arrays)</title>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+	<link rel="stylesheet" type="text/css" href="https://datatables.net/examples/resources/syntax/shCore.css">
+	<link rel="stylesheet" type="text/css" href="https://datatables.net/examples/resources/demo.css">
+	<style type="text/css" class="init">
+	
+	</style>
+	<script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.12.4.js">
+	</script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js">
+	</script>
+	<script type="text/javascript" language="javascript" src="https://datatables.net/examples/resources/syntax/shCore.js">
+	</script>
+	<script type="text/javascript" language="javascript" src="https://datatables.net/examples/resources/demo.js">
+	</script>
+	<script type="text/javascript" language="javascript" class="init">
+	
+$(document).ready(function() {
+	$('#example').DataTable( {
+		"ajax": "/data"
+	} );
+} );
+
+	</script>
+</head>
+<body class="dt-example">
+	<div class="container">
+		<table id="example"></table>
+	</div>
+
+</body>
+</html>
