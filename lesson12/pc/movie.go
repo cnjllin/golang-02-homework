@@ -5,9 +5,8 @@ import (
 )
 
 type Movie struct {
-	Title, Subtitle string
-	Year            int
-	Color           bool
+	Name, Positon, Office, Ext, StartDate string
+	Salary                                int
 }
 
 func handlerx(w http.ResponseWriter, r *http.Request) {
@@ -17,10 +16,12 @@ func handlerx(w http.ResponseWriter, r *http.Request) {
 func main() {
 	var movies []Movie
 	strangelove := Movie{
-		Title:    "Dr. Strangelove",
-		Subtitle: "How I Learned to Stop Worrying and Love the Bomb",
-		Year:     1964,
-		Color:    false,
+		Name:    "Dr. Strangelove",
+		Positon: "xxx",
+		Office:     "dfa",
+		Ext:    "dfsa",
+		StartDate: "2018",
+		Salary: 100000,
 	}
 	movies = append(movies, strangelove)
 
