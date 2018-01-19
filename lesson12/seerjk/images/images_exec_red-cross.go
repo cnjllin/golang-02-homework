@@ -1,4 +1,4 @@
-package images
+package main
 
 import (
 	"golang.org/x/tour/pic"
@@ -37,7 +37,7 @@ func (im *Image) At(x, y int) color.Color {
 	// 绘制红色十字
 	halfX := im.Width / 2
 	halfY := im.Height / 2
-	crossWidth := int(math.Min(float64(im.Width), float64(im.Height)) / 5)
+	crossWidth := int(math.Min(float64(im.Width), float64(im.Height)) / 7)
 	if (x >= halfX-crossWidth && x <= halfX+crossWidth) ||
 		y >= halfY-crossWidth && y <= halfY+crossWidth {
 		return color.RGBA{255, 0, 0, 255}

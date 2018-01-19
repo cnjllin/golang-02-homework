@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test DataTables</title>
+    <!--第一步：引入Javascript / CSS （CDN）-->
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="static/css/jquery.dataTables.css">
+
+    <!-- jQuery -->
+    <script type="text/javascript" charset="utf8" src="static/js/jquery-1.10.2.min.js"></script>
+
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="static/js/jquery.dataTables.js"></script>
+</head>
+
+<body>
+<!--第二步：添加如下 HTML 代码-->
+<table id="table_id_example" class="display">
+
+   <thead>
+
+   <tr>
+       <th>Title</th>
+       <th>Released</th>
+       <th>Color</th>
+       <th>Major Actor</th>
+   </tr>
+
+    </thead>
+    <!--
+   <tbody>
+
+   </tbody>
+   -->
+</table>
+</body>
+
+<script>
+    <!--第三步：初始化Datatables-->
+
+    $(document).ready(function () {
+        $('#table_id_example').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                // 直接本地打开index.html 不能访问该接口，因为有同源限制
+                // 所以通过golang FileServer 起一个静态网页服务
+                "url": "http://127.0.0.1:8000/movie",
+                "type": "POST"
+            },
+            "columns": [
+                {"data": "title"},
+                {"data": "released"},
+                {"data": "color"},
+                {"data": "actors"}
+            ]
+        })
+    })
+
+</script>
+</html>
