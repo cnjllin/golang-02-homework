@@ -1,0 +1,99 @@
+package main
+
+import(
+	"net"
+	"fmt"
+	"os/exec"
+	"github.com/domeos/dockerConnector/Godeps/_workspace/src/github.com/kr/pty"
+	"log"
+	"io"
+	"os"
+	"bufio"
+	"strings"
+	//	"github.com/pkg/errors"
+	//	"time"
+	"time"
+	"bytes"
+	"io/ioutil"
+)
+var (
+	Dangerlist=[]string{"rm","shutdown","kill"}
+)
+func Checkword(conn net.Conn,dangerlist []string,ok chan bool,close chan bool){
+	//	var result string
+	fmt.Printf("Remote server %v",conn.RemoteAddr().String())
+	r:=bufio.NewReader(conn)
+	line,err:=r.ReadString('\n')
+	//conn.Write([]byte(line))
+	fmt.Println("line",line)
+	if err!=nil{
+		log.Println(err)
+	}
+	for i:=0;i<=len(dangerlist)-1;i++{
+		if strings.Contains(line,dangerlist[i]){
+			ok<-false
+			close<-false
+		}
+	}
+	ok<-true
+}
+func Handle(rw ReadWriter,ok chan bool,execu chan bool){
+	fmt.Println("handle start")
+	sign:=<-ok
+	if !sign{
+		rw.Write([]byte("BAD COMMAND！！"))
+		execu<-true
+	}else {
+		cmd:=exec.Command("bash")
+		fd,err:=pty.Start(cmd)
+		if err!=nil{
+			log.Println(err)
+		}
+		f,_:=os.Create("log.sys")
+		defer f.Close()
+		go io.Copy(fd, rw)
+		io.Copy(rw,io.TeeReader(fd,f))
+		execu<-true
+	}
+}
+type ReadWriter interface{
+	io.Reader
+	io.Writer
+}
+type conn2 struct{
+	ReadWriter
+}
+func sender(conn net.Conn,rw ReadWriter,ok,close chan bool,execu chan bool){
+
+	Checkword(conn,Dangerlist,ok,close)
+	fmt.Println("write to conn start")
+	time.Sleep(time.Second)
+	if end:=<-execu;end ==true {
+		go func(conn net.Conn,rw ReadWriter){
+				//var buf bytes.Buffer
+				buf,_:=ioutil.ReadAll(rw)
+				conn.Write(buf)
+		}(conn,rw)
+	}
+	if status:=<-close;status==false{
+		conn.Close()
+	}
+}
+func main() {
+	listener,err:=net.Listen("tcp",":9000")
+	if err!=nil{
+		log.Println("Init listen failed")
+	}
+
+	for{
+		conn,_:=listener.Accept()
+		var conntmp conn2
+		ok:=make(chan bool)
+		close:=make(chan bool)
+		execu:=make(chan bool)
+		go Handle(conntmp,ok,execu)
+		go sender(conn,conntmp,ok,close,execu)
+
+	}
+
+}
